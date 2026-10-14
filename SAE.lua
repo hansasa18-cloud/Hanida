@@ -13679,65 +13679,58 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   S=Instance.new("Frame");
   S.AnchorPoint=Vector2.new(0.5,0);
   S.Position=UDim2.new(0.5,0,0,24);
-  S.Size=UDim2.fromOffset(320,82);
-  S.BackgroundColor3=Color3.fromRGB(11,16,34);
+  S.Size=UDim2.fromOffset(260,64);
+  S.BackgroundColor3=Color3.fromRGB(18,18,22);
   S.BackgroundTransparency=0.05;
   S.Parent=n;
-  Instance.new("UICorner",S).CornerRadius=UDim.new(0,16);
+  Instance.new("UICorner",S).CornerRadius=UDim.new(0,10);
   local U=Instance.new("UIStroke",S);
-  U.Color=Color3.fromRGB(139,92,246);
-  U.Thickness=2;
+  U.Color=Color3.fromRGB(255,60,60);
+  U.Thickness=1.5;
   U.Transparency=0.2;
   U=Instance.new("TextLabel");
   U.BackgroundTransparency=1;
-  U.Position=UDim2.fromOffset(17,13);
+  U.Position=UDim2.fromOffset(12,8);
   U.Size=UDim2.new(1,-24,0,18);
   U.Font=Enum.Font.GothamBold;
   U.TextSize=15;
   U.TextColor3=Color3.fromRGB(255,255,255);
   U.TextXAlignment=Enum.TextXAlignment.Left;
-  U.Text="HANIDA";
+  U.Text="Chilli Hub";
   U.Parent=S;
   local _=Instance.new("TextLabel");
   _.BackgroundTransparency=1;
-  _.Position=UDim2.fromOffset(17,13);
+  _.Position=UDim2.fromOffset(12,8);
   _.Size=UDim2.new(1,-24,0,18);
   _.Font=Enum.Font.GothamBold;
   _.TextSize=15;
-  _.TextColor3=Color3.fromRGB(63,216,255);
+  _.TextColor3=Color3.fromRGB(255,120,90);
   _.TextXAlignment=Enum.TextXAlignment.Right;
   _.Text="0%";
   _.Parent=S;
   local G=Instance.new("TextLabel");
   G.BackgroundTransparency=1;
-  G.Position=UDim2.fromOffset(17,38);
+  G.Position=UDim2.fromOffset(12,27);
   G.Size=UDim2.new(1,-24,0,14);
   G.Font=Enum.Font.GothamMedium;
   G.TextSize=12;
-  G.TextColor3=Color3.fromRGB(177,188,224);
+  G.TextColor3=Color3.fromRGB(170,170,185);
   G.TextXAlignment=Enum.TextXAlignment.Left;
   G.Text="Loading part 1 / 10";
   G.Parent=S;
   U=Instance.new("Frame");
-  U.Position=UDim2.fromOffset(17,61);
+  U.Position=UDim2.fromOffset(12,46);
   U.Size=UDim2.new(1,-24,0,8);
-  U.BackgroundColor3=Color3.fromRGB(30,39,72);
+  U.BackgroundColor3=Color3.fromRGB(42,42,50);
   U.Parent=S;
   Instance.new("UICorner",U).CornerRadius=UDim.new(1,0);
   local S=Instance.new("Frame");
   S.Size=UDim2.new(0,0,1,0);
-  S.BackgroundColor3=Color3.fromRGB(139,92,246);
+  S.BackgroundColor3=Color3.fromRGB(255,255,255);
   S.Parent=U;
   Instance.new("UICorner",S).CornerRadius=UDim.new(1,0);
-  Instance.new("UIGradient",S).Color=ColorSequence.new(Color3.fromRGB(139,92,246),Color3.fromRGB(45,215,255));
-  local parented = pcall(function() n.Parent = W end);
-  if not parented then
-    pcall(function()
-      local player = game:GetService("Players").LocalPlayer;
-      local playerGui = player and player:FindFirstChildOfClass("PlayerGui");
-      if playerGui then n.Parent = playerGui end;
-    end);
-  end;
+  Instance.new("UIGradient",S).Color=ColorSequence.new(Color3.fromRGB(255,50,50),Color3.fromRGB(255,150,60));
+  n.Parent=W;
   local W,U="ChilliLibrary/SAE_LoadProgress.txt";
   pcall(function()local A=isfile(W);
   if A then U=tonumber(string.match(readfile(W),"^(%d+)"));
@@ -13751,13 +13744,12 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   A(0);
   c.ChilliHubLoading=os.clock()+30;
   c.ChilliHubLoadStep=function(W)local R=math.clamp(math.floor(tonumber(W)or 0),0,10);
-  -- Keep progress diagnostics while avoiding a disk write at every step.
-  if R == 0 or R == 10 or R % 2 == 0 then A(R) end;
+  A(R);
   pcall(function()S.Size=UDim2.new(R/10,0,1,0);
   _.Text=tostring(R*10).."%";
   G.Text=R>=10 and"Loaded"or"Loading part "..tostring(R+1).." / 10";
   end);
-  task.wait();
+  task.wait(0.05);
   local W=R>=10;
   if W then c.ChilliHubLoadStep=nil;
   c.ChilliCanvasHold=nil;
@@ -23307,8 +23299,8 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   SW(WW("UIStroke",{Color=Color3.new(1,1,1),Thickness=2},y),Color3.fromRGB(255,196,60),Color3.fromRGB(255,60,40),45);
   local p=WW("ImageLabel",{BackgroundTransparency=1,Image=d,ScaleType=Enum.ScaleType.Crop,Size=UDim2.fromScale(1,1)},y);
   WW("UICorner",{CornerRadius=UDim.new(0,12)},p);
-  SW(r(w,true,24,{Text="HANIDA",Position=UDim2.fromOffset(64,8),Size=UDim2.fromOffset(200,26)}),Color3.fromRGB(188,143,255),Color3.fromRGB(45,215,255),90);
-  r(w,false,12,{Text="HANIDA  |  LIVE FARM STATS",TextColor3=D,Position=UDim2.fromOffset(65,36),Size=UDim2.fromOffset(200,16)});
+  SW(r(w,true,24,{Text="CHILLI HUB",Position=UDim2.fromOffset(64,8),Size=UDim2.fromOffset(200,26)}),Color3.fromRGB(255,226,120),Color3.fromRGB(255,80,40),90);
+  r(w,false,12,{Text="FARM STATS  |  STEAL AN EGG",TextColor3=D,Position=UDim2.fromOffset(65,36),Size=UDim2.fromOffset(200,16)});
   y=WW("Frame",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.82,BorderSizePixel=0,Position=UDim2.fromOffset(282,12),Size=UDim2.fromOffset(2,38)},w);
   WW("UICorner",{CornerRadius=UDim.new(1,0)},y);
   M=r(w,true,26,{Position=UDim2.fromOffset(296,6),Size=UDim2.fromOffset(78,30),TextXAlignment=Enum.TextXAlignment.Center,TextColor3=o});
@@ -37397,7 +37389,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
     end)(25,0,0.05,1.27,1.52,2.5)};
   pcall(function()getgenv().ChilliAntiGuard=I;
   end);
-  local P={Card=Color3.fromRGB(12,17,34),CardTop=Color3.fromRGB(26,30,62),Stroke=Color3.fromRGB(92,78,151),Text=Color3.fromRGB(238,243,255),AccentA=Color3.fromRGB(139,92,246),AccentB=Color3.fromRGB(45,215,255),Good=Color3.fromRGB(80,220,140),Work=Color3.fromRGB(255,190,70),Bad=Color3.fromRGB(240,90,90),Off=Color3.fromRGB(54,58,80)};
+  local P={Card=Color3.fromRGB(15,15,19),CardTop=Color3.fromRGB(24,22,28),Stroke=Color3.fromRGB(48,46,56),Text=Color3.fromRGB(240,238,244),AccentA=Color3.fromRGB(255,72,72),AccentB=Color3.fromRGB(255,150,60),Good=Color3.fromRGB(80,220,140),Work=Color3.fromRGB(255,190,70),Bad=Color3.fromRGB(240,90,90),Off=Color3.fromRGB(58,56,66)};
   local H={{Path={"GearGiver_Slap","Podium"},Offset=Vector3.new(-16.415,21.072,-6.106)},{Path={"World","Machines","RiftMachine","Rift","Meshes/VoidPortal_Cube.003"},Offset=Vector3.new(-26.776,1.75,18.665)},{Path={"__OBJECTS","Machines","RiftMachine","Rift","Meshes/VoidPortal_Cube.003"},Offset=Vector3.new(-26.776,1.75,18.665)}};
   local F,O,Z,y,d=Vector3.new(528.7,70.57,-364.11),52,true,{},{AreaId=nil,SignalCarrying=false,WeldCarrying=false,Carrying=false,Active=false,Disguise=nil,FlashRequest=nil,FlashUntil=0};
   local function X()local o={};
@@ -37440,7 +37432,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   local w=a("ImageLabel",T,{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(0.86,0.86),BackgroundTransparency=1,Image="rbxassetid://128961717706452",ImageTransparency=0.35,ScaleType=Enum.ScaleType.Crop,ZIndex=3});
   a("UICorner",w,{CornerRadius=UDim.new(0,8)});
   local p=a("UIScale",w,{Scale=1});
-  a("UIGradient",a("TextLabel",C,{BackgroundTransparency=1,Position=UDim2.new(0,56,0,7),Size=UDim2.new(1,-112,0,15),Font=Enum.Font.BuilderSansExtraBold,TextSize=14,TextXAlignment=Enum.TextXAlignment.Left,TextColor3=Color3.fromRGB(255,255,255),Text="HANIDA",ZIndex=2}),{Color=ColorSequence.new(Color3.fromRGB(182,132,255),Color3.fromRGB(47,216,255))});
+  a("UIGradient",a("TextLabel",C,{BackgroundTransparency=1,Position=UDim2.new(0,56,0,7),Size=UDim2.new(1,-112,0,15),Font=Enum.Font.BuilderSansExtraBold,TextSize=14,TextXAlignment=Enum.TextXAlignment.Left,TextColor3=Color3.fromRGB(255,255,255),Text="Chilli Hub",ZIndex=2}),{Color=ColorSequence.new(Color3.fromRGB(255,120,100),Color3.fromRGB(255,190,110))});
   a("TextLabel",C,{BackgroundTransparency=1,Position=UDim2.new(0,56,0,22),Size=UDim2.new(1,-112,0,20),Font=Enum.Font.GothamBlack,TextSize=15,TextXAlignment=Enum.TextXAlignment.Left,TextColor3=P.Text,Text="Anti Guard",ZIndex=2});
   local Y=a("TextButton",C,{AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(1,-12,0.5,0),Size=UDim2.fromOffset(42,22),BackgroundColor3=Color3.fromRGB(255,255,255),AutoButtonColor=false,BorderSizePixel=0,Text="",ZIndex=2});
   a("UICorner",Y,{CornerRadius=UDim.new(1,0)});
@@ -38575,7 +38567,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   end;
   end;
   end;
-  n[8].T="HANIDA";
+  n[8].T="Chilli Hub";
   if type(n[8].Title)=="string"then if n[8].Title~=""then n[29]=n[8].Title;
   n[8].T=n[29];
   end;
@@ -38680,120 +38672,12 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   n[19]=n[38][1];
   pcall(n[18],n[19].obj1,"Name",n[9]);
   pcall(n[18],n[19].obj1,"Archivable",true);
-  n[19].obj1:SetAttribute("MenuSize",UDim2.new(0.5199999809265137,0,0.6299999952316284,0));
+  n[19].obj1:SetAttribute("MenuSize",UDim2.new(0.44999998807907104,0,0.550000011920929,0));
   n[19].obj1:SetAttribute(n[11],true);
   if n[8].N then n[19].obj1:SetAttribute("ChilliNamespace",n[8].N);
   end;
   n[40]=n[19].obj1;
   n[40].Parent=n[15];
-
-  -- [HANIDA NEON UI SKIN - BATCHED]
-  -- Style changes only. One batched worker replaces a task.defer per descendant.
-  do
-    local hanidaRoot = n[40]
-    local C_BG = Color3.fromRGB(10,14,31)
-    local C_SURFACE = Color3.fromRGB(16,22,44)
-    local C_PURPLE = Color3.fromRGB(139,92,246)
-    local C_CYAN = Color3.fromRGB(45,215,255)
-
-    local function addCorner(node, radius)
-      if not node:FindFirstChildOfClass("UICorner") then
-        local corner = Instance.new("UICorner")
-        corner.CornerRadius = UDim.new(0, radius)
-        corner.Parent = node
-      end
-    end
-
-    local function applyHanidaSkin(node)
-      if not node or not node.Parent then return end
-      if node:IsA("Frame") then
-        if node.Parent == hanidaRoot then
-          node.BackgroundColor3 = C_BG
-          addCorner(node, 18)
-          local border = node:FindFirstChildOfClass("UIStroke")
-          if border then
-            border.Color = C_PURPLE
-            border.Thickness = 1.8
-            border.Transparency = 0.14
-          end
-        elseif node.Name == "Top" then
-          node.BackgroundColor3 = Color3.fromRGB(25,24,62)
-          addCorner(node, 16)
-        elseif node.Name == "Main" then
-          node.BackgroundColor3 = C_SURFACE
-          addCorner(node, 10)
-        elseif node.Name == "Section" or node.Name == "Card" or node.Name == "Container" then
-          if node.BackgroundTransparency < 0.9 then addCorner(node,10) end
-        end
-      elseif node:IsA("TextButton") then
-        if node.BackgroundTransparency < 0.9 then addCorner(node,9) end
-      elseif node:IsA("ScrollingFrame") then
-        node.ScrollBarImageColor3 = C_PURPLE
-      elseif node:IsA("TextLabel") and node.Text == "HANIDA" then
-        node.Font = Enum.Font.GothamBlack
-        node.TextColor3 = Color3.fromRGB(238,243,255)
-        if not node:FindFirstChild("HanidaTitleShine") then
-          local shine = Instance.new("UIGradient")
-          shine.Name = "HanidaTitleShine"
-          shine.Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(221,197,255)),
-            ColorSequenceKeypoint.new(0.53, C_PURPLE),
-            ColorSequenceKeypoint.new(1, C_CYAN)
-          })
-          shine.Rotation = 0
-          shine.Parent = node
-        end
-      end
-    end
-
-    -- A single worker processes a bounded number of instances per frame.
-    -- This avoids a huge burst of deferred tasks when the GUI is constructed.
-    local pending = {}
-    local first, last = 1, 0
-    local active = false
-
-    local function runBatch()
-      if active then return end
-      active = true
-      task.defer(function()
-        while hanidaRoot.Parent and first <= last do
-          local processed = 0
-          while first <= last and processed < 80 do
-            local node = pending[first]
-            pending[first] = nil
-            first += 1
-            processed += 1
-            if node and node.Parent and node:IsDescendantOf(hanidaRoot) then
-              pcall(applyHanidaSkin, node)
-            end
-          end
-          if first <= last then task.wait() end
-        end
-        pending = {}
-        first, last = 1, 0
-        active = false
-      end)
-    end
-
-    local function enqueue(node)
-      if not node or not (
-        node:IsA("Frame") or node:IsA("TextButton")
-        or node:IsA("ScrollingFrame") or node:IsA("TextLabel")
-      ) then return end
-      last += 1
-      pending[last] = node
-      runBatch()
-    end
-
-    hanidaRoot.DescendantAdded:Connect(enqueue)
-    task.defer(function()
-      if not hanidaRoot.Parent then return end
-      for _, node in ipairs(hanidaRoot:GetDescendants()) do
-        enqueue(node)
-      end
-    end)
-  end
-  -- [/HANIDA NEON UI SKIN - BATCHED]
   n[41]=(Instance.new("Frame"));
   n[19].obj2=n[41];
   pcall(n[18],n[19].obj2,"Name","Frame");
@@ -38801,8 +38685,8 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj2,"Visible",true);
   pcall(n[18],n[19].obj2,"Active",false);
   pcall(n[18],n[19].obj2,"AnchorPoint",Vector2.new(0.5,0.5));
-  pcall(n[18],n[19].obj2,"BackgroundColor3",Color3.fromRGB(10,14,31));
-  pcall(n[18],n[19].obj2,"BackgroundTransparency",0.029999999329447746);
+  pcall(n[18],n[19].obj2,"BackgroundColor3",Color3.fromRGB(0,0,0));
+  pcall(n[18],n[19].obj2,"BackgroundTransparency",0.4000000059604645);
   pcall(n[18],n[19].obj2,"BorderColor3",Color3.fromRGB(0,0,0));
   pcall(n[18],n[19].obj2,"BorderSizePixel",0);
   pcall(n[18],n[19].obj2,"ClipsDescendants",false);
@@ -38810,7 +38694,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj2,"Rotation",0);
   pcall(n[18],n[19].obj2,"Selectable",false);
   pcall(n[18],n[19].obj2,"SelectionOrder",0);
-  pcall(n[18],n[19].obj2,"Size",UDim2.new(0.5199999809265137,0,0.6299999952316284,0));
+  pcall(n[18],n[19].obj2,"Size",UDim2.new(0.44999998807907104,0,0.550000011920929,0));
   pcall(n[18],n[19].obj2,"SizeConstraint",Enum.SizeConstraint.RelativeXY);
   pcall(n[18],n[19].obj2,"ZIndex",1);
   pcall(n[18],n[19].obj2,"AutomaticSize",Enum.AutomaticSize.None);
@@ -38838,7 +38722,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj4,"Visible",true);
   pcall(n[18],n[19].obj4,"Active",false);
   pcall(n[18],n[19].obj4,"AnchorPoint",Vector2.new(0.5,0));
-  pcall(n[18],n[19].obj4,"BackgroundColor3",Color3.fromRGB(24,23,61));
+  pcall(n[18],n[19].obj4,"BackgroundColor3",Color3.fromRGB(111,0,2));
   pcall(n[18],n[19].obj4,"BackgroundTransparency",0);
   pcall(n[18],n[19].obj4,"BorderColor3",Color3.fromRGB(0,0,0));
   pcall(n[18],n[19].obj4,"BorderSizePixel",0);
@@ -38860,7 +38744,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj5,"Name","UIStroke");
   pcall(n[18],n[19].obj5,"Archivable",true);
   pcall(n[18],n[19].obj5,"ApplyStrokeMode",Enum.ApplyStrokeMode.Border);
-  pcall(n[18],n[19].obj5,"Color",Color3.fromRGB(105,63,188));
+  pcall(n[18],n[19].obj5,"Color",Color3.fromRGB(58,0,0));
   pcall(n[18],n[19].obj5,"Enabled",true);
   pcall(n[18],n[19].obj5,"LineJoinMode",Enum.LineJoinMode.Round);
   pcall(n[18],n[19].obj5,"Thickness",0.05999999865889549);
@@ -38955,7 +38839,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj9,"Visible",true);
   pcall(n[18],n[19].obj9,"Active",false);
   pcall(n[18],n[19].obj9,"AnchorPoint",Vector2.new(0.5,0.5));
-  pcall(n[18],n[19].obj9,"BackgroundColor3",Color3.fromRGB(238,241,255));
+  pcall(n[18],n[19].obj9,"BackgroundColor3",Color3.fromRGB(239,220,203));
   pcall(n[18],n[19].obj9,"BackgroundTransparency",1);
   pcall(n[18],n[19].obj9,"BorderColor3",Color3.fromRGB(0,0,0));
   pcall(n[18],n[19].obj9,"BorderSizePixel",0);
@@ -38979,7 +38863,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj9,"TextWrapped",true);
   pcall(n[18],n[19].obj9,"TextXAlignment",Enum.TextXAlignment.Left);
   pcall(n[18],n[19].obj9,"TextYAlignment",Enum.TextYAlignment.Center);
-  pcall(n[18],n[19].obj9,"Font",Enum.Font.GothamBlack);
+  pcall(n[18],n[19].obj9,"Font",Enum.Font.FredokaOne);
   pcall(n[18],n[19].obj9,"RichText",false);
   pcall(n[18],n[19].obj9,"LineHeight",1);
   pcall(n[18],n[19].obj9,"MaxVisibleGraphemes",-1);
@@ -39003,7 +38887,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   n[19].obj11=n[68];
   pcall(n[18],n[19].obj11,"Name","UIGradient");
   pcall(n[18],n[19].obj11,"Archivable",true);
-  pcall(n[18],n[19].obj11,"Color",ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(176,125,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(47,206,255))}));
+  pcall(n[18],n[19].obj11,"Color",ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(253,86,89)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255,11,15))}));
   pcall(n[18],n[19].obj11,"Enabled",true);
   pcall(n[18],n[19].obj11,"Offset",Vector2.new(0,0));
   pcall(n[18],n[19].obj11,"Rotation",90);
@@ -39109,7 +38993,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj16,"Visible",true);
   pcall(n[18],n[19].obj16,"Active",false);
   pcall(n[18],n[19].obj16,"AnchorPoint",Vector2.new(0.5,0.5));
-  pcall(n[18],n[19].obj16,"BackgroundColor3",Color3.fromRGB(24,28,62));
+  pcall(n[18],n[19].obj16,"BackgroundColor3",Color3.fromRGB(126,0,0));
   pcall(n[18],n[19].obj16,"BackgroundTransparency",0);
   pcall(n[18],n[19].obj16,"BorderColor3",Color3.fromRGB(0,0,0));
   pcall(n[18],n[19].obj16,"BorderSizePixel",0);
@@ -39213,7 +39097,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj20,"Visible",true);
   pcall(n[18],n[19].obj20,"Active",false);
   pcall(n[18],n[19].obj20,"AnchorPoint",Vector2.new(0.5,0.5));
-  pcall(n[18],n[19].obj20,"BackgroundColor3",Color3.fromRGB(238,241,255));
+  pcall(n[18],n[19].obj20,"BackgroundColor3",Color3.fromRGB(239,220,203));
   pcall(n[18],n[19].obj20,"BackgroundTransparency",1);
   pcall(n[18],n[19].obj20,"BorderColor3",Color3.fromRGB(0,0,0));
   pcall(n[18],n[19].obj20,"BorderSizePixel",0);
@@ -39261,7 +39145,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   n[19].obj22=n[101];
   pcall(n[18],n[19].obj22,"Name","UIGradient");
   pcall(n[18],n[19].obj22,"Archivable",true);
-  pcall(n[18],n[19].obj22,"Color",ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(221,194,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(129,87,235))}));
+  pcall(n[18],n[19].obj22,"Color",ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,130,130)),ColorSequenceKeypoint.new(1,Color3.fromRGB(239,28,28))}));
   pcall(n[18],n[19].obj22,"Enabled",true);
   pcall(n[18],n[19].obj22,"Offset",Vector2.new(0,0));
   pcall(n[18],n[19].obj22,"Rotation",90);
@@ -39274,7 +39158,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   pcall(n[18],n[19].obj23,"Name","UIStroke");
   pcall(n[18],n[19].obj23,"Archivable",true);
   pcall(n[18],n[19].obj23,"ApplyStrokeMode",Enum.ApplyStrokeMode.Border);
-  pcall(n[18],n[19].obj23,"Color",Color3.fromRGB(66,41,139));
+  pcall(n[18],n[19].obj23,"Color",Color3.fromRGB(76,0,0));
   pcall(n[18],n[19].obj23,"Enabled",true);
   pcall(n[18],n[19].obj23,"LineJoinMode",Enum.LineJoinMode.Round);
   pcall(n[18],n[19].obj23,"Thickness",0.09000000357627869);
@@ -40399,7 +40283,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   local O=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.ExtraBold,Enum.FontStyle.Normal);
   local K=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.ExtraBold,Enum.FontStyle.Italic);
   local h=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(0.486159176,Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(0.519031167,Color3.fromRGB(221,221,221)),ColorSequenceKeypoint.new(1,Color3.fromRGB(236,236,236))});
-  local b=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(25,35,85)),ColorSequenceKeypoint.new(1,Color3.fromRGB(12,19,50))});
+  local b=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,36,84)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,31,54))});
   local function w(p)for Y,Y in ipairs(p:GetChildren())do if Y:IsA("UIGradient")then Y:Destroy();
   end;
   end;
@@ -40461,8 +40345,8 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   w(s);
   Y(s,Color3.fromRGB(0,0,0),0.07999999821186066);
   end;
-  local w=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(207,194,255)),ColorSequenceKeypoint.new(0.0570934266,Color3.fromRGB(177,140,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(129,87,235))});
-  local p=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(207,194,255)),ColorSequenceKeypoint.new(0.0155709349,Color3.fromRGB(177,140,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(129,87,235))});
+  local w=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,193,194)),ColorSequenceKeypoint.new(0.0570934266,Color3.fromRGB(255,132,123)),ColorSequenceKeypoint.new(1,Color3.fromRGB(239,28,28))});
+  local p=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,193,194)),ColorSequenceKeypoint.new(0.0155709349,Color3.fromRGB(255,132,123)),ColorSequenceKeypoint.new(1,Color3.fromRGB(239,28,28))});
   local function Y(J,s,V)local x=Instance.new("UIGradient");
   x.Name=s;
   x.Color=V;
@@ -40502,7 +40386,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   B.Name="Main";
   B.Active=false;
   B.AnchorPoint=Vector2.new(0.5,0.5);
-  B.BackgroundColor3=Color3.fromRGB(101,67,184);
+  B.BackgroundColor3=Color3.fromRGB(175,0,0);
   B.BorderSizePixel=0;
   B.Position=UDim2.fromScale(0.5,0.5);
   B.Size=UDim2.fromScale(1,0.92);
@@ -40914,7 +40798,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   RW.Name="Main";
   RW.Active=false;
   RW.AnchorPoint=Vector2.new(0.5,0.5);
-  RW.BackgroundColor3=Color3.fromRGB(101,67,184);
+  RW.BackgroundColor3=Color3.fromRGB(175,0,0);
   RW.BorderSizePixel=0;
   RW.Position=UDim2.fromScale(0.5,0.5);
   RW.Size=UDim2.fromScale(1,1);
@@ -41330,7 +41214,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   fW.Name="Main";
   fW.Active=false;
   fW.AnchorPoint=Vector2.new(0.5,0.5);
-  fW.BackgroundColor3=Color3.fromRGB(101,67,184);
+  fW.BackgroundColor3=Color3.fromRGB(175,0,0);
   fW.BorderSizePixel=0;
   fW.Position=UDim2.fromScale(0.5,0.5);
   fW.Size=UDim2.fromScale(1,0.92);
@@ -45230,7 +45114,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
     end;
     local function qW(LW,tW)local iW=Instance.new("Frame");
     iW.Name=tostring(tW.Name or"Bar");
-    iW.BackgroundColor3=kW(tW.Background,Color3.fromRGB(24,30,55));
+    iW.BackgroundColor3=kW(tW.Background,Color3.fromRGB(40,40,55));
     iW.BackgroundTransparency=math.clamp(TW(tW.BackgroundTransparency,0.25),0,1);
     iW.BorderSizePixel=0;
     iW.ClipsDescendants=true;
@@ -45251,7 +45135,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
     end;
     end;
     end;
-    iW.BackgroundColor3=kW(tW.Background,Color3.fromRGB(24,30,55));
+    iW.BackgroundColor3=kW(tW.Background,Color3.fromRGB(40,40,55));
     EW.BackgroundColor3=kW(tW.FillColor,Color3.fromRGB(58,255,55));
     EW.Size=UDim2.fromScale(math.clamp(TW(tW.Alpha,0),0,1),1);
     pW(iW,TW(tW.Corner,0.16)*MW.Unit);
@@ -46099,7 +45983,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   if m then local i,WW=TweenInfo.new,Enum;
   local SW,UW=WW.EasingStyle.Quad,Enum.EasingDirection;
   WW,v=i(0.14,SW,UW.Out),{};
-  v.BackgroundColor3=p and Color3.fromRGB(165,99,255)or Color3.fromRGB(101,67,184);
+  v.BackgroundColor3=p and Color3.fromRGB(255,54,54)or Color3.fromRGB(175,0,0);
   n[4]:Create(m,WW,v):Play();
   end;
   end;
@@ -46320,7 +46204,7 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   end;
   end;
   FW[106]=function(k,r)assert(not k.Window,"ChilliLibrary chi quan ly 1 Window cho UI nay");
-  local P=M(r or{Name="HANIDA"},"HANIDA");
+  local P=M(r or{Name="Chilli Hub"},"Chilli Hub");
   local r=setmetatable({_kind="Window",_destroyed=false,_exclusiveGroupByName={},_stateObjects=setmetatable({},{__mode="k"}),_stateByName={},_tabByName={},ExclusiveGroups={},Name=P.Name,SelectedTab=nil,States={},Tabs={}},h);
   k.Window=r;
   function N.ReflowTabs()if not(r._destroyed)then FW[93](r);
@@ -50350,8 +50234,8 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   local c=W;
   local W,U,_,G,A,R,f,g,k,r,I,P,H,F,O,Z,y,d,X=c:CreateTab({Name="Discord",Side="Right",SectionsExpanded=true}):CreateSection({Name="Community",Expanded=true}),"https://discord.gg/CJK4bs2mgT","discord.gg/CJK4bs2mgT","rbxassetid://128961717706452","130K+",0.5,0.0909,0.2,5.4,4.2,5.2,6,3.6,6.4,2,11.4,3,0.35,{{Color="#FF6A55",Title="New Scripts &amp; Updates",Text="Patch notes and new game scripts are posted there first."},{Color="#FFB054",Title="Giveaways",Text="Member giveaways and events are announced in the server."},{Color="#9AA3FF",Title="Support",Text="Ask for help, report bugs and get answers from the team."},{Color="#6EE49C",Title="Suggestions",Text="Request features and vote on what gets added next."}};
   local o=Z+#X*3.35+2.4+0.4;
-  local j=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(200,161,255)),ColorSequenceKeypoint.new(0.5,Color3.fromRGB(138,98,250)),ColorSequenceKeypoint.new(1,Color3.fromRGB(55,210,255))});
-  local a,D,v=ColorSequence.new(Color3.fromRGB(32,25,76),Color3.fromRGB(10,15,32)),{Perks={}},0;
+  local j=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,218,96)),ColorSequenceKeypoint.new(0.5,Color3.fromRGB(255,152,60)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255,82,64))});
+  local a,D,v=ColorSequence.new(Color3.fromRGB(74,24,18),Color3.fromRGB(14,11,15)),{Perks={}},0;
   local function l()local C=setclipboard or toclipboard;
   local K,h=type(C)=="function"and pcall(C,U)or false;
   C=S;
@@ -50388,10 +50272,10 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   end;
   D.Tip.Set({Width=C});
   end;
-  local function v(C)D.Hero=C:Frame({Name="Hero",X=g,Y=g,Width=14,Height=k,Background="#FFFFFF",Gradient=a,GradientRotation=0,Corner=0.35,StrokeColor="#8B5CF6",StrokeThickness=f,StrokeTransparency=0.55});
+  local function v(C)D.Hero=C:Frame({Name="Hero",X=g,Y=g,Width=14,Height=k,Background="#FFFFFF",Gradient=a,GradientRotation=0,Corner=0.35,StrokeColor="#FF6A40",StrokeThickness=f,StrokeTransparency=0.55});
   D.Logo=C:Image({Parent=D.Hero,X=0.5,Y=(k-r)/2,Width=r,Height=r,Image=G});
-  D.Title=C:Text({Parent=D.Hero,X=I,Y=0.45,Width=1,Height=1.6,Scale=1.45,Wrap=false,Text="<b>ORIGINAL COMMUNITY</b>",Gradient=j,GradientRotation=0,TextStrokeTransparency=1});
-  D.Subtitle=C:Text({Parent=D.Hero,X=I,Y=2.1,Width=1,Height=1,Wrap=false,Text="Original script community and support",Color="#DCDCE8"});
+  D.Title=C:Text({Parent=D.Hero,X=I,Y=0.45,Width=1,Height=1.6,Scale=1.45,Wrap=false,Text="<b>Chilli Hub</b>",Gradient=j,GradientRotation=0,TextStrokeTransparency=1});
+  D.Subtitle=C:Text({Parent=D.Hero,X=I,Y=2.1,Width=1,Height=1,Wrap=false,Text="Official Discord Community",Color="#DCDCE8"});
   D.Members=C:Text({Parent=D.Hero,X=I,Y=3.3,Width=1,Height=1.2,Wrap=false,Text=string.format("<font color=\"#6EE49C\">%s</font>  <b>%s</b>  <font color=\"#B8B8CC\">Members</font>",utf8.char(9679),A)});
   D.Invite=C:Frame({Name="Invite",X=g,Y=P+g,Width=14,Height=H,Background="#000000",BackgroundTransparency=0.5,Corner=0.35,StrokeColor="#5865F2",StrokeThickness=f,StrokeTransparency=0.35});
   D.Label=C:Text({Parent=D.Invite,X=R+0.1,Y=0.35,Width=1,Height=0.9,Scale=0.78,Wrap=false,Text="<b>INVITE LINK</b>",Color="#9C9CB4"});
@@ -50441,3 +50325,4 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   return 33,c.r[_],S,R;
   end;
   end},{}):qW(...);
+
