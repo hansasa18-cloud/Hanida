@@ -13730,7 +13730,14 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   S.Parent=U;
   Instance.new("UICorner",S).CornerRadius=UDim.new(1,0);
   Instance.new("UIGradient",S).Color=ColorSequence.new(Color3.fromRGB(139,92,246),Color3.fromRGB(45,215,255));
-  n.Parent=W;
+  local parented = pcall(function() n.Parent = W end);
+  if not parented then
+    pcall(function()
+      local player = game:GetService("Players").LocalPlayer;
+      local playerGui = player and player:FindFirstChildOfClass("PlayerGui");
+      if playerGui then n.Parent = playerGui end;
+    end);
+  end;
   local W,U="ChilliLibrary/SAE_LoadProgress.txt";
   pcall(function()local A=isfile(W);
   if A then U=tonumber(string.match(readfile(W),"^(%d+)"));
@@ -13744,12 +13751,13 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   A(0);
   c.ChilliHubLoading=os.clock()+30;
   c.ChilliHubLoadStep=function(W)local R=math.clamp(math.floor(tonumber(W)or 0),0,10);
-  A(R);
+  -- Keep progress diagnostics while avoiding a disk write at every step.
+  if R == 0 or R == 10 or R % 2 == 0 then A(R) end;
   pcall(function()S.Size=UDim2.new(R/10,0,1,0);
   _.Text=tostring(R*10).."%";
   G.Text=R>=10 and"Loaded"or"Loading part "..tostring(R+1).." / 10";
   end);
-  task.wait(0.05);
+  task.wait();
   local W=R>=10;
   if W then c.ChilliHubLoadStep=nil;
   c.ChilliCanvasHold=nil;
@@ -38679,26 +38687,29 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   n[40]=n[19].obj1;
   n[40].Parent=n[15];
 
-  -- [HANIDA NEON UI SKIN] Visual layer only; does not change worker/callback state.
+  -- [HANIDA NEON UI SKIN - BATCHED]
+  -- Style changes only. One batched worker replaces a task.defer per descendant.
   do
     local hanidaRoot = n[40]
     local C_BG = Color3.fromRGB(10,14,31)
     local C_SURFACE = Color3.fromRGB(16,22,44)
     local C_PURPLE = Color3.fromRGB(139,92,246)
     local C_CYAN = Color3.fromRGB(45,215,255)
+
     local function addCorner(node, radius)
       if not node:FindFirstChildOfClass("UICorner") then
         local corner = Instance.new("UICorner")
-        corner.CornerRadius = UDim.new(0,radius)
+        corner.CornerRadius = UDim.new(0, radius)
         corner.Parent = node
       end
     end
+
     local function applyHanidaSkin(node)
       if not node or not node.Parent then return end
       if node:IsA("Frame") then
         if node.Parent == hanidaRoot then
           node.BackgroundColor3 = C_BG
-          addCorner(node,18)
+          addCorner(node, 18)
           local border = node:FindFirstChildOfClass("UIStroke")
           if border then
             border.Color = C_PURPLE
@@ -38707,10 +38718,10 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
           end
         elseif node.Name == "Top" then
           node.BackgroundColor3 = Color3.fromRGB(25,24,62)
-          addCorner(node,16)
+          addCorner(node, 16)
         elseif node.Name == "Main" then
           node.BackgroundColor3 = C_SURFACE
-          addCorner(node,10)
+          addCorner(node, 10)
         elseif node.Name == "Section" or node.Name == "Card" or node.Name == "Container" then
           if node.BackgroundTransparency < 0.9 then addCorner(node,10) end
         end
@@ -38718,38 +38729,71 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
         if node.BackgroundTransparency < 0.9 then addCorner(node,9) end
       elseif node:IsA("ScrollingFrame") then
         node.ScrollBarImageColor3 = C_PURPLE
-      elseif node:IsA("TextLabel") then
-        if node.Text == "HANIDA" then
-          node.Font = Enum.Font.GothamBlack
-          node.TextColor3 = Color3.fromRGB(238,243,255)
-          if not node:FindFirstChild("HanidaTitleShine") then
-            local shine = Instance.new("UIGradient")
-            shine.Name = "HanidaTitleShine"
-            shine.Color = ColorSequence.new({
-              ColorSequenceKeypoint.new(0, Color3.fromRGB(221,197,255)),
-              ColorSequenceKeypoint.new(0.53, C_PURPLE),
-              ColorSequenceKeypoint.new(1, C_CYAN)
-            })
-            shine.Rotation = 0
-            shine.Parent = node
-          end
+      elseif node:IsA("TextLabel") and node.Text == "HANIDA" then
+        node.Font = Enum.Font.GothamBlack
+        node.TextColor3 = Color3.fromRGB(238,243,255)
+        if not node:FindFirstChild("HanidaTitleShine") then
+          local shine = Instance.new("UIGradient")
+          shine.Name = "HanidaTitleShine"
+          shine.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(221,197,255)),
+            ColorSequenceKeypoint.new(0.53, C_PURPLE),
+            ColorSequenceKeypoint.new(1, C_CYAN)
+          })
+          shine.Rotation = 0
+          shine.Parent = node
         end
       end
     end
-    hanidaRoot.DescendantAdded:Connect(function(node)
+
+    -- A single worker processes a bounded number of instances per frame.
+    -- This avoids a huge burst of deferred tasks when the GUI is constructed.
+    local pending = {}
+    local first, last = 1, 0
+    local active = false
+
+    local function runBatch()
+      if active then return end
+      active = true
       task.defer(function()
-        if node and node:IsDescendantOf(hanidaRoot) then
-          pcall(applyHanidaSkin,node)
+        while hanidaRoot.Parent and first <= last do
+          local processed = 0
+          while first <= last and processed < 80 do
+            local node = pending[first]
+            pending[first] = nil
+            first += 1
+            processed += 1
+            if node and node.Parent and node:IsDescendantOf(hanidaRoot) then
+              pcall(applyHanidaSkin, node)
+            end
+          end
+          if first <= last then task.wait() end
         end
+        pending = {}
+        first, last = 1, 0
+        active = false
       end)
-    end)
+    end
+
+    local function enqueue(node)
+      if not node or not (
+        node:IsA("Frame") or node:IsA("TextButton")
+        or node:IsA("ScrollingFrame") or node:IsA("TextLabel")
+      ) then return end
+      last += 1
+      pending[last] = node
+      runBatch()
+    end
+
+    hanidaRoot.DescendantAdded:Connect(enqueue)
     task.defer(function()
-      for _,node in ipairs(hanidaRoot:GetDescendants()) do
-        pcall(applyHanidaSkin,node)
+      if not hanidaRoot.Parent then return end
+      for _, node in ipairs(hanidaRoot:GetDescendants()) do
+        enqueue(node)
       end
     end)
   end
-  -- [/HANIDA NEON UI SKIN]
+  -- [/HANIDA NEON UI SKIN - BATCHED]
   n[41]=(Instance.new("Frame"));
   n[19].obj2=n[41];
   pcall(n[18],n[19].obj2,"Name","Frame");
@@ -50397,4 +50441,3 @@ return setmetatable({[14292]=function(c,c,c,c,c,c,c,c)return function(c,c,W)loca
   return 33,c.r[_],S,R;
   end;
   end},{}):qW(...);
-
